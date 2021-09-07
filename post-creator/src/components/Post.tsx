@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {IComments, UserActionTypes} from "../redux/types";
 import {useDispatch} from "react-redux";
+import {Button} from "react-bootstrap";
 
 interface Ipost {
     post: {
@@ -22,11 +23,12 @@ export const Post: React.FC<Ipost> = ({post}) => {
     const commentsTitles = () => {
         if (typeof post.comments != "undefined") {
             // @ts-ignore
-           return post.comments.map(( comment,index)=>{
-               return (<div key={`3-${index}`}>{comment.body}</div>)
-           })
+            return post.comments.map((comment, index) => {
+                return (<div key={`3-${index}`}>{index+1+". "}{String(comment.body)}</div>)
+            })
         }
     }
+
     function changePost(e: React.SyntheticEvent<HTMLButtonElement>) {
         e.preventDefault();
         if (!isChangePressed) {
@@ -44,7 +46,7 @@ export const Post: React.FC<Ipost> = ({post}) => {
         setTitle(e.target.value)
     }
 
-    function changeHandlerBody(e: React.ChangeEvent<HTMLInputElement>): void {
+    function changeHandlerBody(e: React.ChangeEvent<HTMLTextAreaElement>): void {
         setBody(e.target.value)
     }
 
@@ -53,35 +55,39 @@ export const Post: React.FC<Ipost> = ({post}) => {
         dispatch({type: UserActionTypes.DELETE_POST, payload: post.id})
     }
 
-    function setCommentName(e: React.ChangeEvent<HTMLInputElement>){
+    function setCommentName(e: React.ChangeEvent<HTMLInputElement>) {
         setComment(e.target.value)
     }
 
     function createComment(e: React.SyntheticEvent<HTMLButtonElement>) {
         e.preventDefault();
-        if(comment.trim()){
-            dispatch({type:UserActionTypes.CREATE_COMMENT,payload:{postId:post.id,body:comment}})
-           setComment('')
+        if (comment.trim()) {
+            dispatch({type: UserActionTypes.CREATE_COMMENT, payload: {postId: post.id, body: comment}})
+            setComment('')
         }
 
     }
 
-    // @ts-ignore
     return (
         <div className="post">
             <input type="text" value={title} className='post-title' onChange={changeHandlerTitle}
                    disabled={!isChangePressed}/>
-            <input type="text" name="" id="" disabled={!isChangePressed} onChange={changeHandlerBody} value={body}/>
-            <button type="submit" onClick={deleteHandler}>Удалить</button>
-            <button type="submit"
-                    onClick={changePost}>{!isChangePressed && "Изменить"}{isChangePressed && "Сохранить"}</button>
+            <textarea   id="post-body" disabled={!isChangePressed} onChange={changeHandlerBody} value={body}
+                      placeholder='Введите ваш комментар'/>
+
+            <button type="submit" className='post-change'
+                    onClick={changePost}>
+                <div>
+                    {!isChangePressed && '✎'}{isChangePressed && "\t💾"} &#173;</div>
+            </button>
+            <button type="submit" className="post-delete" onClick={deleteHandler}><div>❌ </div></button>
+
 
             <div className="comment">
-                {/* @ts-ignore */}
                 <div className="comment-titles">{commentsTitles()}</div>
 
                 <input type='text' value={comment} onChange={setCommentName}/>
-                <button type="submit" onClick={createComment}>Создать коммент</button>
+                <Button variant="outline-primary" type="submit" className="create-comment" onClick={createComment}>Создать коммент</Button>
             </div>
         </div>
     )

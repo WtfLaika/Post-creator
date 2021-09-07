@@ -1,9 +1,100 @@
-.input-container{
-    margin:30px auto;
+.input-container {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 400px;
 }
-.create-post{
-    margin:20px auto
+
+.create-post {
+    margin: 20px auto
 }
-select{
-   margin-bottom: 50px;
+
+select {
+    margin-bottom: 50px !important;
 }
+
+.title-creator {
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+textarea {
+    resize: none !important;
+}
+
+.title-creator, .body-creator {
+    width: 250px;
+    background: none;
+}
+
+.body-creator {
+    height: 150px !important;
+}
+
+.post{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+}
+
+.post-title{
+  text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.post-delete,.post-change{
+    height: 15px !important;
+    width: 15px !important;
+    font-size: 8px !important;
+    position: relative;
+
+    background: none;
+    border: 1px solid black;
+    text-align: left;
+}
+.post-delete{
+    top: -214px;
+    left: 98.3%;
+}
+.post-change{
+    top: -199px;
+    left: 96.3%;
+}
+.post-delete > div,.post-change > div{
+    left: -4px;
+    position: relative;
+}
+
+#post-body{
+    height: 150px !important;
+}
+.comment{
+    display: flex;
+    flex-direction: column;
+}
+
+.create-comment{
+    width: 20%;
+    margin: 20px 0;
+}
+
+.container{
+    max-width: 80% !important;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1440px) {
+    .post-change{
+        left: 94.3%;
+    }
+    .post-delete{
+        left:97.9%;
+    }
+    .create-comment{
+        font-size: 14px !important;
+    }
+}
+
